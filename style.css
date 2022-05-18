@@ -1,0 +1,56 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.row{
+    background: white;
+    border-radius: 30px;
+    box-shadow: 12px 12px 22px ;
+}
+.login img{
+    border-top-left-radius:30px ;
+    border-top-right-radius:30px ;
+}
+.login h1{
+    font-size: 50px;
+    font-weight: 200;
+    font-family: 'Water Brush', cursive;
+}
+.inp{
+    height: 50px;
+    width: 70%;
+    border: none;
+    outline: none;
+    border-radius:60px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+.btn1{
+    height: 50px;
+    width: 50%;
+    border: none;
+    outline: none;
+    border-radius: 60px;
+    font-weight: 600;
+    background-color: blueviolet;
+    color: white;
+}
+.btn1:hover{
+    background-color: plum;
+    transition: 0.5s;
+}
+.message{
+    font-size: 16px;
+    color: black;
+    margin: 15px;
+    cursor: pointer;
+
+}
+.message a{
+    text-decoration: none;
+    color: black;
+
+}
+.message a:hover{
+   color: #b3b3b3;
+} 

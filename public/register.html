@@ -19,6 +19,8 @@
         <input id="password" name="password" type="password">
         <label for="password2">password again</label>
         <input id="password2" name="password2" type="password">
+        <input id="task" name="task" type="hidden">
+
         <button type="submit">submit</button>
     </form>
     <a href="login">Login</a>
@@ -26,29 +28,43 @@
     <script>
         // ==============================================================================================
       
-        function LoadDataBase()
+        function loadDataBase()
         {
             const xhttp = new XMLHttpRequest();
+            const retValue=null;
             xhttp.onload =()=>
             {
                 if(xhttp.status>=200 && xhttp.status<300)
                 {
-                        const response=JSON.parse(xhttp.response);
-                        // document.getElementById().innerHTML=response;
-                        console.log(response);
-                        
+                   const response = JSON.parse(xhttp.response);
+                   const lastUser=response[Object.keys(response)[Object.keys(response).length - 1]];
+                   retValue = lastUser;
+
                 }
             }
 
             xhttp.open("get","/loaddata/register",true);
             xhttp.send();
+            return retValue;
         }
 
-        LoadDataBase();
+  
 
-
+  
         // ================================
         const form = document.forms[0];
+
+
+
+        function autoIncremment()
+      {
+       const getID=loadDataBase();
+       console.log(getID);
+      }
+
+      autoIncremment();
+
+
 
         form.addEventListener("submit", function (event) {
             event.preventDefault();
@@ -59,13 +75,15 @@
             const data = event.formData;
 
             const values = [...data.values()];
-
-            const id = new Date().getTime();
+           
+            const id = Math.random() * 4;
             const userName = values[1];
             const email = values[2];
             const password = values[3];
             const password2 = values[4];;
-
+            const task = values[5];
+            
+            // console.log(task);
             const xhttp = new XMLHttpRequest();
 
             if (
@@ -87,7 +105,7 @@
             ) {
                 xhttp.open("post", "/addUser", true);
                 xhttp.setRequestHeader("content-type", "application/json");
-                xhttp.send(JSON.stringify({ id, userName, email, password }));
+                xhttp.send(JSON.stringify({ id, userName, email, password,task }));
                 alert("you are successfuly registered, please use the login button.");
                 window.location.href = "login";
             } else {

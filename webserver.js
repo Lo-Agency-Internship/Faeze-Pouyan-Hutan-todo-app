@@ -29,7 +29,7 @@ app.post('/addUser', function(req, res) {
 
 app.get("/loaddata/register",(req,res)=>
 {
-  const dataBaseFile= fs.readFileSync(path.join(__dirname,"/dataBase/dataBase.json"),'utf-8');
+  const dataBaseFile= JSON.parse(fs.readFileSync(path.join(__dirname,"/dataBase/dataBase.json"),'utf-8'));
  res.json(dataBaseFile);
 
 })

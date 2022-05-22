@@ -25,7 +25,29 @@
     
     <script>
         // ==============================================================================================
-        alert("hi");
+      
+        function LoadDataBase()
+        {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload =()=>
+            {
+                if(xhttp.status>=200 && xhttp.status<300)
+                {
+                        const response=JSON.parse(xhttp.response);
+                        // document.getElementById().innerHTML=response;
+                        console.log(response);
+                        
+                }
+            }
+
+            xhttp.open("get","/loaddata/register",true);
+            xhttp.send();
+        }
+
+        LoadDataBase();
+
+
+        // ================================
         const form = document.forms[0];
 
         form.addEventListener("submit", function (event) {
@@ -36,11 +58,7 @@
         form.addEventListener("formdata", (event) => {
             const data = event.formData;
 
-            const entries = [...data.entries()];
-            console.log(entries);
-
             const values = [...data.values()];
-            console.log(values);
 
             const id = new Date().getTime();
             const userName = values[1];
@@ -49,6 +67,7 @@
             const password2 = values[4];;
 
             const xhttp = new XMLHttpRequest();
+
             if (
                 userName === null ||
                 userName === "" ||

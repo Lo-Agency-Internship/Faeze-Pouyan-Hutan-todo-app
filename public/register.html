@@ -6,85 +6,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>register</title>
+    <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> -->
 </head>
 
 <body>
-    <form id="form">
-        <input id="id" name="id" type="hidden">
+    <h2>register</h2>
+    <form id="form" method="post">
         <label for="userName">userName:</label>
         <input id="userName" name="userName" type="text">
         <label for="email">email</label>
         <input id="email" name="email" type="text">
-        <label for="password">password</label>
-        <input id="password" name="password" type="password">
+        <label for="password1">password</label>
+        <input id="password1" name="password1" type="password">
         <label for="password2">password again</label>
         <input id="password2" name="password2" type="password">
-        <input id="task" name="task" type="hidden">
-
         <button type="submit">submit</button>
     </form>
     <a href="login">Login</a>
-    
-    <script>
-        // ==============================================================================================
-      
-        function loadDataBase()
-        {
-            const xhttp = new XMLHttpRequest();
-            const retValue=null;
-            xhttp.onload =()=>
-            {
-                if(xhttp.status>=200 && xhttp.status<300)
-                {
-                   const response = JSON.parse(xhttp.response);
-                   const lastUser=response[Object.keys(response)[Object.keys(response).length - 1]];
-                   retValue = lastUser;
+    <script src="./js/fetch.js"></script>
 
+
+    <!-- <script>
+        // ==============================================================================================
+        
+        function loadDataBase() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload= () => {
+                if (xhttp.status >= 200 && xhttp.status < 300) {
+                    const response = JSON.parse(xhttp.response);
+                    const lastUser = response[Object.keys(response)[Object.keys(response).length - 1]];
+                    const lastUserID = lastUser.id;
                 }
             }
-
-            xhttp.open("get","/loaddata/register",true);
+            xhttp.open("get"
+            , "/loaddata/register", true);
             xhttp.send();
-            return retValue;
         }
 
-  
+        loadDataBase()
 
-  
-        // ================================
+        // -------------------------------------------------------------
+        // ---------------------register USERS--------------------------
         const form = document.forms[0];
-
-
-
-        function autoIncremment()
-      {
-       const getID=loadDataBase();
-       console.log(getID);
-      }
-
-      autoIncremment();
-
-
-
         form.addEventListener("submit", function (event) {
             event.preventDefault();
             new FormData(form);
         });
-
         form.addEventListener("formdata", (event) => {
-            const data = event.formData;
+            const xhttp = new XMLHttpRequest();
 
+            const data = event.formData;
             const values = [...data.values()];
-           
-            const id = Math.random() * 4;
+            // const id = ???
             const userName = values[1];
             const email = values[2];
             const password = values[3];
             const password2 = values[4];;
             const task = values[5];
-            
-            // console.log(task);
-            const xhttp = new XMLHttpRequest();
 
             if (
                 userName === null ||
@@ -105,7 +83,7 @@
             ) {
                 xhttp.open("post", "/addUser", true);
                 xhttp.setRequestHeader("content-type", "application/json");
-                xhttp.send(JSON.stringify({ id, userName, email, password,task }));
+                xhttp.send(JSON.stringify({ id, userName, email, password, task }));
                 alert("you are successfuly registered, please use the login button.");
                 window.location.href = "login";
             } else {
@@ -113,8 +91,16 @@
             }
         });
 
-        // ----------------------------------------------------
-        // ----------------------------------------------------
+
+        // ---------------autoIncremment functions--------------------
+        // -----------------------------------------------------------
+        function autoIncremment(lastUserID) {
+            // const getJson=
+            lastUserID = lastUserID + 1;
+            return lastUserID;
+        }
+        // ---------------validatation functions----------------------
+        // -----------------------------------------------------------
         function ValidateName(name) {
             if (/^[a-zA-Z0-9]+$/.test(name)) {
                 return true;
@@ -144,9 +130,7 @@
         // ----------------------------------------------------
         // ----------------------------------------------------
         document.getElementById("form").reset();
-
-
-    </script>
+    </script> -->
 </body>
 
 </html>

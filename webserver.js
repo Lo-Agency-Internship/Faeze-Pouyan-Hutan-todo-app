@@ -46,7 +46,7 @@ app.post("/register", function (req, res) {
       path.join(__dirname, "dataBase/dataBase.json"),
       JSON.stringify(dataBaseFile)
     );
-    res.writeHead(302, {location: '/'});
+   res.redirect("/")
   }
 });
 

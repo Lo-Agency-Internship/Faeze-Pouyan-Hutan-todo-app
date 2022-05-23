@@ -28,8 +28,8 @@ function saveDataBase(callback) {
 // --------------------------------------------------
 // ----REGISTER USER FROM REGISTER PAGE FUNC---------
 
-const form = document.querySelector("#form");
-form.addEventListener("submit", (e) => RegisterUsers(e));
+const button = document.querySelector("#button");
+button.addEventListener("click", (e) => RegisterUsers(e));
 
 function RegisterUsers(e) {
   e.preventDefault;
@@ -40,9 +40,13 @@ function RegisterUsers(e) {
   const passWord1 = document.getElementById("password1").value;
   const passWord2 = document.getElementById("password2").value;
   const UserSubmitedCredentialsObj = {userID, userName, email, passWord1, passWord2 };
+  
   xhttp.open("POST", "/register", true);
+ 
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  
   xhttp.send(JSON.stringify(UserSubmitedCredentialsObj));
+  document.form.reset();
 }
 // -------------------------------------
 // -------------------------------------

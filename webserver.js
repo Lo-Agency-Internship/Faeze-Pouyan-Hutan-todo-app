@@ -29,7 +29,7 @@ app.post("/register", function (req, res) {
   const UserSubmitedCredentialsObj = req.body;
 
   console.log(UserSubmitedCredentialsObj);
-  
+
   const dataBaseFile = JSON.parse(
     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
   );
@@ -37,18 +37,17 @@ app.post("/register", function (req, res) {
   const foundUser = dataBaseFile.find(
     (item) => item.userName === UserSubmitedCredentialsObj.userName
   );
-  
-    if (foundUser) {
-      res.status(499).sendFile(path.join(__dirname, "/public", "register.html"));
-    }
-    else {
-      dataBaseFile.push(UserSubmitedCredentialsObj);
-      fs.writeFileSync(
-        path.join(__dirname, "dataBase/dataBase.json"),
-        JSON.stringify(dataBaseFile)
-      );
-      res.redirect("/index");
-    }
+
+  if (foundUser) {
+    res.status(499).sendFile(path.join(__dirname, "/public", "register.html"));
+  } else {
+    dataBaseFile.push(UserSubmitedCredentialsObj);
+    fs.writeFileSync(
+      path.join(__dirname, "dataBase/dataBase.json"),
+      JSON.stringify(dataBaseFile)
+    );
+    res.writeHead(302, {location: '/'});
+  }
 });
 
 // --------------------------------------------------

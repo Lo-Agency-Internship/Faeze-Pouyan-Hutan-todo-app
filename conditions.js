@@ -43,7 +43,6 @@ module.exports = {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       return true;
     } else {
-      alert("You have entered an invalid Email!");
       return false;
     }
   },
@@ -52,7 +51,6 @@ module.exports = {
     if (password === password2) {
       return true;
     } else {
-      alert("passwords must be the same!");
       return false;
     }
   }

@@ -29,11 +29,17 @@ app.get("/register", function (req, res) {
 app.post("/register", function (req, res) {
   const UserSubmitedCredentialsObj = req.body;
 
-  console.log(UserSubmitedCredentialsObj);
+  // -------------------------------------------
+  // ----------read DataBase--------------------
+  // -------------------------------------------
 
   const dataBaseFile = JSON.parse(
     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
   );
+
+  // -------------------------------------------
+  // ----search for userName occurances---------
+  // -------------------------------------------
 
   const foundUser = dataBaseFile.find(
     (item) => item.userName === UserSubmitedCredentialsObj.userName
@@ -49,30 +55,45 @@ app.post("/register", function (req, res) {
 
     conditions.autoIncremment(dataBaseFile, UserSubmitedCredentialsObj);
 
-    // ----------------------------------
-    // --------CONDITIONS----------------
-    
-    if(!(conditions.ValidateName(UserSubmitedCredentialsObj.userName))){
-      res.status(900).sendFile(path.join(__dirname, "/public", "register.html"));
-    }
-    else{
-      return;
-    }
+    // ---------------------------------------
+    // ---------CHECK USERNAME FUNC-----------
 
-    
-    // ----------------------------------
-    // ------------PUSH data-------------
-
-    dataBaseFile.push(UserSubmitedCredentialsObj);
-    fs.writeFileSync(
-      path.join(__dirname, "dataBase/dataBase.json"),
-      JSON.stringify(dataBaseFile)
+    let checkUserName = conditions.ValidateName(
+      UserSubmitedCredentialsObj.userName
     );
 
-    res.status(304).sendFile(path.join(__dirname, "/public", "register.html")); 
+    // --------------------------------------
+    // ----------CHECK Email FUNC------------
+    let checkEmail = conditions.ValidateEmail(UserSubmitedCredentialsObj.email);
 
-   res.redirect("/")
+    // -----------------------------------------
+    // ----------CHECK Password FUNC------------
+    let checkPassword = conditions.comparePasswords(
+      UserSubmitedCredentialsObj.passWord1,
+      UserSubmitedCredentialsObj.passWord2
+    );
 
+    // -----------------------------------------
+    // ------------CHECK CONDITIONS-------------
+    // -----------------------------------------
+    if (!checkUserName || !checkEmail || !checkPassword) {
+      res
+        .status(666)
+        .sendFile(path.join(__dirname, "/public", "register.html"));
+    } else {
+      // --------------------------------------
+      // ------------PUSH data-----------------
+      // --------------------------------------
+      delete UserSubmitedCredentialsObj["passWord2"];
+      dataBaseFile.push(UserSubmitedCredentialsObj);
+      fs.writeFileSync(
+        path.join(__dirname, "dataBase/dataBase.json"),
+        JSON.stringify(dataBaseFile)
+      );
+      res
+        .status(304)
+        .sendFile(path.join(__dirname, "/public", "register.html"));
+    }
   }
 });
 

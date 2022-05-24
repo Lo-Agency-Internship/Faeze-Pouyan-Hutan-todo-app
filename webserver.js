@@ -68,7 +68,11 @@ app.post("/register", function (req, res) {
       path.join(__dirname, "dataBase/dataBase.json"),
       JSON.stringify(dataBaseFile)
     );
+
     res.status(304).sendFile(path.join(__dirname, "/public", "register.html")); 
+
+   res.redirect("/")
+
   }
 });
 

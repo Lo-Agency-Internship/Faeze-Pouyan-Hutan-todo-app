@@ -6,6 +6,7 @@ const path = require("path");
 const { isStringObject } = require("util/types");
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
+const conditions = require("./conditions");
 // --------------------------------------------------
 // ----------- INDEX --------------------------------
 
@@ -40,13 +41,38 @@ app.post("/register", function (req, res) {
 
   if (foundUser) {
     res.status(499).sendFile(path.join(__dirname, "/public", "register.html"));
+    return false;
   } else {
+    
+    // ----------------------------------
+    // --------Auto Increment------------
+
+    conditions.autoIncremment(dataBaseFile, UserSubmitedCredentialsObj);
+
+    // ----------------------------------
+    // --------CONDITIONS----------------
+    
+    if(!(conditions.ValidateName(UserSubmitedCredentialsObj.userName))){
+      res.status(900).sendFile(path.join(__dirname, "/public", "register.html"));
+    }
+    else{
+      return;
+    }
+
+    
+    // ----------------------------------
+    // ------------PUSH data-------------
+
     dataBaseFile.push(UserSubmitedCredentialsObj);
     fs.writeFileSync(
       path.join(__dirname, "dataBase/dataBase.json"),
       JSON.stringify(dataBaseFile)
     );
+
+    res.status(304).sendFile(path.join(__dirname, "/public", "register.html")); 
+
    res.redirect("/")
+
   }
 });
 

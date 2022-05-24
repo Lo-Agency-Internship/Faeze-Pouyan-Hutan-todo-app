@@ -34,19 +34,34 @@ button.addEventListener("click", (e) => RegisterUsers(e));
 function RegisterUsers(e) {
   e.preventDefault;
   const xhttp = new XMLHttpRequest();
-  const userID = new Date().getTime();
+  // const userID = new Date().getTime();
   const userName = document.getElementById("userName").value;
   const email = document.getElementById("email").value;
   const passWord1 = document.getElementById("password1").value;
   const passWord2 = document.getElementById("password2").value;
-  const UserSubmitedCredentialsObj = {userID, userName, email, passWord1, passWord2 };
-  
+  const UserSubmitedCredentialsObj = {
+    // userID,
+    userName,
+    email,
+    passWord1,
+    passWord2,
+  };
+
+  xhttp.onreadystatechange = () => {
+    if(xhttp.status===304){
+      window.location.href = "../login.html";
+    }
+    if(xhttp.status===900){
+     alert("you have typed your username wrong, user name should only contain letters and numbers");
+    }
+  };
+
   xhttp.open("POST", "/register", true);
- 
+
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  
+
   xhttp.send(JSON.stringify(UserSubmitedCredentialsObj));
-  document.form.reset();
+  // document.form.reset();
 }
 // -------------------------------------
 // -------------------------------------

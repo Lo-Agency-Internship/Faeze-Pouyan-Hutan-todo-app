@@ -142,10 +142,12 @@ app.post("/login", function (req, res) {
   
   if (foundUserName && foundPassword) {
     // res.status(499).sendFile(path.join(__dirname, "/public", "index.html"));
-    res.set({
-      'content-type': 'application/json',
-      'id': foundUserName.id
-   }).status(499).sendFile(path.join(__dirname, "/public", "index.html"));
+  //   res.set({
+  //     'content-type': 'application/json',
+  //     'id': foundUserName.id
+  //  }).status(499).sendFile(path.join(__dirname, "/public", "index.html"));
+  res.setHeader("id",foundUserName.id);
+  res.status(599).sendFile(path.join(__dirname, "/public", "login.html"))
     return true;
   } else {
     res.status(666).sendFile(path.join(__dirname, "/public", "login.html"));

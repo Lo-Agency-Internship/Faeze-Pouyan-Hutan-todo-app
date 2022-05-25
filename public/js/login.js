@@ -18,8 +18,9 @@ function LoginUsers(e) {
   xhttp.onload = () => {
     switch (xhttp.status) {
     
-      case 499:
-        sessionStorage.setItem("user",JSON.stringify (userName))
+      case 599:
+        // sessionStorage.setItem("user",JSON.stringify (userName))
+        sessionStorage.setItem("id",xhttp.getResponseHeader("id"));
         window.location.href = "../index.html";
         break;
 

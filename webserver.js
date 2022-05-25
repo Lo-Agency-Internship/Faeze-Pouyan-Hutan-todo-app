@@ -7,28 +7,13 @@ const { isStringObject } = require("util/types");
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 const conditions = require("./utils/registerCredentialsFunctions");
+
 // ----------------------------------------------------------------
 // ----------- INDEX ----------------------------------------------
 // ----------------------------------------------------------------
 
-// app.get("/", function (req, res) {
-  
-//    const idFromSesion = req.body;
-//  console.log(idFromSesion);
-//   // -------------------------------------------
-//   // ----------read DataBase--------------------
-//   // -------------------------------------------
-
-//   const dataBaseFile = JSON.parse(
-//     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
-//   );
-
-// });
-
 app.post("/:name(index|/)?", function (req, res) {
-
-    const userTasks = req.body;
-    console.log(userTasks);
+  const userTasks = req.body;
   // -------------------------------------------
   // ----------read DataBase--------------------
   // -------------------------------------------
@@ -36,6 +21,17 @@ app.post("/:name(index|/)?", function (req, res) {
   const dataBaseFile = JSON.parse(
     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
   );
+
+  // ---find user based on id in session-------
+  // ------------------------------------------
+
+  const foundUser = dataBaseFile.find(
+    (item) => Number(item.id) === Number(userTasks.id)
+  );
+
+  if (foundUser) {
+    console.log("hello")
+  }
 
 });
 
@@ -135,7 +131,6 @@ app.get("/login", function (req, res) {
 });
 
 app.post("/login", function (req, res) {
-  
   // received user input in login page
   // -----------------------------------
   const UserSubmitedCredentialsObj = req.body;
@@ -158,11 +153,10 @@ app.post("/login", function (req, res) {
   const foundPassword = dataBaseFile.find(
     (item) => item.passWord1 === UserSubmitedCredentialsObj.passWord1
   );
-  
-  if (foundUserName && foundPassword) {
 
-  res.setHeader("id",foundUserName.id);
-  res.status(599).sendFile(path.join(__dirname, "/public", "login.html"))
+  if (foundUserName && foundPassword) {
+    res.setHeader("id", foundUserName.id);
+    res.status(599).sendFile(path.join(__dirname, "/public", "login.html"));
     return true;
   } else {
     res.status(666).sendFile(path.join(__dirname, "/public", "login.html"));

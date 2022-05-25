@@ -1,30 +1,3 @@
-// -------------------------------------
-// ---------GENERAL FUNCTION------------
-
-function fetch(method, url, cb, data = null) {
-  const xhttp = new XMLHttpRequest();
-
-  xhttp.onload = () => {
-    if (xhttp.status >= 200 && xhttp.status < 300) {
-      const response = JSON.parse(xhttp.respone);
-      cb(response, data);
-    }
-  };
-
-  xhttp.open(method, url, true);
-  xhttp.send();
-}
-
-// --------------------------------------------
-// --------LOAD AND SAVE TO BACKEND------------
-
-function loadDataBase(callback) {
-  fetch("GET", "/dataBaseOperations", callback);
-}
-function saveDataBase(callback) {
-  fetch("POST", "/dataBaseOperations", callback);
-}
-
 // --------------------------------------------------
 // ----REGISTER USER FROM REGISTER PAGE FUNC---------
 
@@ -45,9 +18,7 @@ function RegisterUsers(e) {
     passWord2,
   };
 
-  // xhttp.onreadystatechange = () => {
 
-  // };
   xhttp.onload = () => {
     switch (xhttp.status) {
       case 304:

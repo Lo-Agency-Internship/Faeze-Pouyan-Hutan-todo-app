@@ -11,13 +11,32 @@ const conditions = require("./utils/registerCredentialsFunctions");
 // ----------- INDEX ----------------------------------------------
 // ----------------------------------------------------------------
 
-app.get("/", function (req, res) {
-  let name = __dirname + "/public/" + "index.html";
-  res.sendFile(name);
-});
+// app.get("/", function (req, res) {
+  
+//    const idFromSesion = req.body;
+//  console.log(idFromSesion);
+//   // -------------------------------------------
+//   // ----------read DataBase--------------------
+//   // -------------------------------------------
 
-app.get("/index", function (req, res) {
-  res.sendFile(path.join(__dirname, "/public", "index.html"));
+//   const dataBaseFile = JSON.parse(
+//     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+//   );
+
+// });
+
+app.post("/:name(index|/)?", function (req, res) {
+
+    const userTasks = req.body;
+    console.log(userTasks);
+  // -------------------------------------------
+  // ----------read DataBase--------------------
+  // -------------------------------------------
+
+  const dataBaseFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+  );
+
 });
 
 // ----------------------------------------------------------------
@@ -141,11 +160,9 @@ app.post("/login", function (req, res) {
   );
   
   if (foundUserName && foundPassword) {
-    // res.status(499).sendFile(path.join(__dirname, "/public", "index.html"));
-    res.set({
-      'content-type': 'application/json',
-      'id': foundUserName.id
-   }).status(499).sendFile(path.join(__dirname, "/public", "index.html"));
+
+  res.setHeader("id",foundUserName.id);
+  res.status(599).sendFile(path.join(__dirname, "/public", "login.html"))
     return true;
   } else {
     res.status(666).sendFile(path.join(__dirname, "/public", "login.html"));

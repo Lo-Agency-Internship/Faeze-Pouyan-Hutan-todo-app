@@ -5,7 +5,7 @@ const button = document.querySelector("#button");
 button.addEventListener("click", (e) => LoginUsers(e));
 
 function LoginUsers(e) {
-  e.preventDefault;
+  e.preventDefault();
   const xhttp = new XMLHttpRequest();
   const userName = document.getElementById("userName").value;
   const passWord1 = document.getElementById("password1").value;
@@ -18,8 +18,9 @@ function LoginUsers(e) {
   xhttp.onload = () => {
     switch (xhttp.status) {
     
-      case 499:
-        localStorage.setItem("id",xhttp.HEADERS_RECEIVED)
+      case 599:
+        // sessionStorage.setItem("user",JSON.stringify (userName))
+        sessionStorage.setItem("id",xhttp.getResponseHeader("id"));
         window.location.href = "../index.html";
         break;
 

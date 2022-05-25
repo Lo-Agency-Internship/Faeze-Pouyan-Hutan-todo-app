@@ -55,7 +55,6 @@ app.post("/register", function (req, res) {
     res.status(499).sendFile(path.join(__dirname, "/public", "register.html"));
     return false;
   } else {
-    
     // ----------------------------------
     // --------Auto Increment------------
 
@@ -73,7 +72,6 @@ app.post("/register", function (req, res) {
 
     let checkEmail = conditions.ValidateEmail(UserSubmitedCredentialsObj.email);
 
-    
     // -----------------------------------------
     // ----------CHECK Password FUNC------------
     // -----------------------------------------
@@ -92,7 +90,6 @@ app.post("/register", function (req, res) {
         .status(666)
         .sendFile(path.join(__dirname, "/public", "register.html"));
     } else {
-
       // --------------------------------------
       // ------------PUSH data-----------------
       // --------------------------------------
@@ -119,24 +116,53 @@ app.get("/login", function (req, res) {
 });
 
 app.post("/login", function (req, res) {
-  res.sendFile(path.join(__dirname, "/public", "login.html"));
+  
+  // received user input in login page
+  // -----------------------------------
+  const UserSubmitedCredentialsObj = req.body;
+
+  // -------------------------------------------
+  // ----------read DataBase--------------------
+  // -------------------------------------------
+
+  const dataBaseFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+  );
+
+  // -------------------------------------------
+  // search for username and password in database
+  // -------------------------------------------
+
+  const foundUserName = dataBaseFile.find(
+    (item) => item.userName === UserSubmitedCredentialsObj.userName
+  );
+  const foundPassword = dataBaseFile.find(
+    (item) => item.passWord1 === UserSubmitedCredentialsObj.passWord1
+  );
+
+  if (foundUserName && foundPassword) {
+    res.status(499).sendFile(path.join(__dirname, "/public", "index.html"));
+    return true;
+  } else {
+    res.status(666).sendFile(path.join(__dirname, "/public", "login.html"));
+  }
 });
 
 // --------------------------------------------------
 // -------------Data Base Operations-----------------
 
-app.get("/dataBaseOperations", function (req, res) {
-  const dataBaseFile = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
-  );
-  res.json(dataBaseFile);
-});
+// app.get("/dataBaseOperations", function (req, res) {
+//   const dataBaseFile = JSON.parse(
+//     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+//   );
+//   res.json(dataBaseFile);
+// });
 
-app.post("/dataBaseOperations", function (req, res) {
-  const dataBaseFile = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
-  );
-});
+// app.post("/dataBaseOperations", function (req, res) {
+//   const dataBaseFile = JSON.parse(
+//     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+//   );
+// });
 
 // --------------------------------------------------
 // --------------------------------------------------

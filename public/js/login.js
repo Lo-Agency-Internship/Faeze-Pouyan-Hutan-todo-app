@@ -19,10 +19,12 @@ function LoginUsers(e) {
     switch (xhttp.status) {
     
       case 499:
+        localStorage.setItem("id",xhttp.HEADERS_RECEIVED)
         window.location.href = "../index.html";
         break;
 
       case 666:
+        window.location.href = "../login.html";
         alert(
           "user or password is wrong"
         );

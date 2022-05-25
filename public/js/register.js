@@ -16,6 +16,7 @@ function RegisterUsers(e) {
     email,
     passWord1,
     passWord2,
+    task:[]
   };
 
 

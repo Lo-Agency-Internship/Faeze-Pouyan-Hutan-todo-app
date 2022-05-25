@@ -12,12 +12,59 @@ const conditions = require("./utils/registerCredentialsFunctions");
 // ----------------------------------------------------------------
 
 app.get("/", function (req, res) {
-  let name = __dirname + "/public/" + "index.html";
-  res.sendFile(name);
+  
+   const idFromSesion = req.body;
+ console.log(idFromSesion);
+  // -------------------------------------------
+  // ----------read DataBase--------------------
+  // -------------------------------------------
+
+  const dataBaseFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+  );
+
+  // const foundId = dataBaseFile.find(
+  //   (item) => item.id === sessionStorage.getItem("id")
+  // );
+
+//   if(foundId)
+// {
+//   res.statusCode(600).sendFile(path.join( __dirname + "/public/" + "index.html"));
+// }
+// else
+// {
+//   res.statusCode(700).sendFile(path.join( __dirname + "/public/" + "login.html"));
+// }
+
+
 });
 
 app.get("/index", function (req, res) {
-  res.sendFile(path.join(__dirname, "/public", "index.html"));
+
+    const idFromSesion = req.body;
+    console.log(idFromSesion);
+  // -------------------------------------------
+  // ----------read DataBase--------------------
+  // -------------------------------------------
+
+  const dataBaseFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+  );
+
+//   const foundId = dataBaseFile.find(
+//     (item) => item.id === sessionStorage.getItem("id")
+//   );
+
+//   if(foundId)
+// {
+//   res.statusCode(600).sendFile(path.join( __dirname + "/public/" + "index.html"));
+// }
+// else
+// {
+//   res.statusCode(700).sendFile(path.join( __dirname + "/public/" + "login.html"));
+// }
+
+
 });
 
 // ----------------------------------------------------------------

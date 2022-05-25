@@ -5,7 +5,7 @@ const button = document.querySelector("#button");
 button.addEventListener("click", (e) => RegisterUsers(e));
 
 function RegisterUsers(e) {
-  e.preventDefault;
+  e.preventDefault();
   const xhttp = new XMLHttpRequest();
   const userName = document.getElementById("userName").value;
   const email = document.getElementById("email").value;

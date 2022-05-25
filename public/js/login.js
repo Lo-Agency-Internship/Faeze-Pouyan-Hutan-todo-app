@@ -5,7 +5,7 @@ const button = document.querySelector("#button");
 button.addEventListener("click", (e) => LoginUsers(e));
 
 function LoginUsers(e) {
-  e.preventDefault;
+  e.preventDefault();
   const xhttp = new XMLHttpRequest();
   const userName = document.getElementById("userName").value;
   const passWord1 = document.getElementById("password1").value;

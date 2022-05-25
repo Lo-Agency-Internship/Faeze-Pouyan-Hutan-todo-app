@@ -19,7 +19,7 @@ function LoginUsers(e) {
     switch (xhttp.status) {
     
       case 499:
-        localStorage.setItem("id",xhttp.HEADERS_RECEIVED)
+        sessionStorage.setItem("user",JSON.stringify (userName))
         window.location.href = "../index.html";
         break;
 

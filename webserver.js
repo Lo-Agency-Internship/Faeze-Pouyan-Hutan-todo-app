@@ -6,9 +6,10 @@ const path = require("path");
 const { isStringObject } = require("util/types");
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
-const conditions = require("./conditions");
-// --------------------------------------------------
-// ----------- INDEX --------------------------------
+const conditions = require("./utils/registerCredentialsFunctions");
+// ----------------------------------------------------------------
+// ----------- INDEX ----------------------------------------------
+// ----------------------------------------------------------------
 
 app.get("/", function (req, res) {
   let name = __dirname + "/public/" + "index.html";
@@ -19,8 +20,9 @@ app.get("/index", function (req, res) {
   res.sendFile(path.join(__dirname, "/public", "index.html"));
 });
 
-// --------------------------------------------------
-// ----------- REGISTER -----------------------------
+// ----------------------------------------------------------------
+// ----------- REGISTER -------------------------------------------
+// ----------------------------------------------------------------
 
 app.get("/register", function (req, res) {
   res.sendFile(path.join(__dirname, "/public", "register.html"));
@@ -39,7 +41,11 @@ app.post("/register", function (req, res) {
 
   // -------------------------------------------
   // ----search for userName occurances---------
-  // -------------------------------------------
+  // ---if not found send 499 status to register
+  // ---if found go to Auto Increment ID then---
+  // ---RUN userName, email and password functions
+  // ---if false return 666 status--------------
+  // ---if true push user credentials to database
 
   const foundUser = dataBaseFile.find(
     (item) => item.userName === UserSubmitedCredentialsObj.userName
@@ -64,10 +70,14 @@ app.post("/register", function (req, res) {
 
     // --------------------------------------
     // ----------CHECK Email FUNC------------
+
     let checkEmail = conditions.ValidateEmail(UserSubmitedCredentialsObj.email);
 
+    
     // -----------------------------------------
     // ----------CHECK Password FUNC------------
+    // -----------------------------------------
+
     let checkPassword = conditions.comparePasswords(
       UserSubmitedCredentialsObj.passWord1,
       UserSubmitedCredentialsObj.passWord2
@@ -76,14 +86,17 @@ app.post("/register", function (req, res) {
     // -----------------------------------------
     // ------------CHECK CONDITIONS-------------
     // -----------------------------------------
+
     if (!checkUserName || !checkEmail || !checkPassword) {
       res
         .status(666)
         .sendFile(path.join(__dirname, "/public", "register.html"));
     } else {
+
       // --------------------------------------
       // ------------PUSH data-----------------
       // --------------------------------------
+
       delete UserSubmitedCredentialsObj["passWord2"];
       dataBaseFile.push(UserSubmitedCredentialsObj);
       fs.writeFileSync(
@@ -97,8 +110,9 @@ app.post("/register", function (req, res) {
   }
 });
 
-// --------------------------------------------------
-// ----------- LOGIN --------------------------------
+// ----------------------------------------------------------------
+// ----------- LOGIN ----------------------------------------------
+// ----------------------------------------------------------------
 
 app.get("/login", function (req, res) {
   res.sendFile(path.join(__dirname, "/public", "login.html"));

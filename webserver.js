@@ -139,9 +139,13 @@ app.post("/login", function (req, res) {
   const foundPassword = dataBaseFile.find(
     (item) => item.passWord1 === UserSubmitedCredentialsObj.passWord1
   );
-
+  
   if (foundUserName && foundPassword) {
-    res.status(499).sendFile(path.join(__dirname, "/public", "index.html"));
+    // res.status(499).sendFile(path.join(__dirname, "/public", "index.html"));
+    res.set({
+      'content-type': 'application/json',
+      'id': foundUserName.id
+   }).status(499).sendFile(path.join(__dirname, "/public", "index.html"));
     return true;
   } else {
     res.status(666).sendFile(path.join(__dirname, "/public", "login.html"));

@@ -11,6 +11,7 @@ const utils = require("./utils/utils");
 // ----------------------------------------------------------------
 // ----------- INDEX ----------------------------------------------
 // ----------------------------------------------------------------
+let sessionStorageUserID = "";
 
 app.post("/:name(index|/)?", function (req, res) {
   const userTasks = req.body;
@@ -28,13 +29,18 @@ app.post("/:name(index|/)?", function (req, res) {
   const foundUser = dataBaseFile.find(
     (item) => Number(item.id) === Number(userTasks.id)
   );
-
+  // // =============================================
+  // sessionStorageUserID = Number(userTasks.id)
+  // // =============================================
   if (foundUser) {
     delete userTasks["id"];
     // ----------------------------------
     // --------Auto Increment------------
 
-    utils.autoIncremment(dataBaseFile[foundUser.id - 1].task, Object.values(userTasks)[0]);
+    utils.autoIncremment(
+      dataBaseFile[foundUser.id - 1].task,
+      Object.values(userTasks)[0]
+    );
 
     dataBaseFile[foundUser.id - 1].task.push(Object.values(userTasks)[0]);
     fs.writeFileSync(
@@ -43,7 +49,26 @@ app.post("/:name(index|/)?", function (req, res) {
     );
   }
 });
+// ===================================================================
 
+app.post("/:name(index|/)?/api", function (req, res) {
+  /// session id user
+  const userIdFromSession = req.body;
+
+  // -------------------------------------------
+  // ----------read DataBase--------------------
+  // -------------------------------------------
+
+  const dataBaseFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+  );
+
+  const UserFound = dataBaseFile.find((item) => Number(item.id) === Number(Object.values(userIdFromSession)));
+  console.log("2----",UserFound);
+  /// task load she
+  /// res send tasks
+  /// xml begirim bezarim tu p
+});
 // ----------------------------------------------------------------
 // ----------- REGISTER -------------------------------------------
 // ----------------------------------------------------------------
@@ -87,9 +112,7 @@ app.post("/register", function (req, res) {
     // ---------------------------------------
     // ---------CHECK USERNAME FUNC-----------
 
-    let checkUserName = utils.ValidateName(
-      UserSubmitedCredentialsObj.userName
-    );
+    let checkUserName = utils.ValidateName(UserSubmitedCredentialsObj.userName);
 
     // --------------------------------------
     // ----------CHECK Email FUNC------------

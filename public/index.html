@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>index</title>
-  </head>
-  <body onload="SetSession()">
-    <div class="form">
-      <label for="task" >Enter Your Task Title</label>
-      <input type="text" id="task" name="task" />
-      <label for="date">Enter Your Task Date</label>
-      <input type="date" id="date" name="date" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>index</title>
+</head>
+
+<body onload="SetSession()">
+  <div class="form">
+    <label for="task">Enter Your Task Title</label>
+    <input type="text" id="task" name="task" />
+    <label for="date">Enter Your Task Date</label>
+    <input type="date" id="date" name="date" />
     <button id="saveTask" type="submit">Save</button>
+  </div>
 
-    </div>
+<div id="listOfTasks">
+  <p id="tasksFromDB"></p>
+</div>
 
-    <script src="js/index.js"></script>
-  </body>
+  <script src="js/index.js"></script>
+</body>
+
 </html>

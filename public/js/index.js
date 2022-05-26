@@ -5,6 +5,11 @@ function SetSession() {
   } else {
     const xhttp = new XMLHttpRequest();
     /// read db for tasks
+    xhttp.onload= () => {
+      if (xhttp.status=250){
+        const response = xhttp.responseText;
+      }
+    }
 
     xhttp.open("POST", "/index/api", true);
 

@@ -62,9 +62,16 @@ app.post("/:name(index|/)?/api", function (req, res) {
     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
   );
 
-  const UserFound = dataBaseFile.find((item) => Number(item.id) === Number(Object.values(userIdFromSession)));
-  console.log("2----",UserFound);
+  const UserFound = dataBaseFile.find(
+    (item) => Number(item.id) === Number(Object.values(userIdFromSession))
+  );
+
   /// task load she
+  const tasksOfUser = UserFound.task;
+  console.log("task of user",tasksOfUser);
+  res
+  .status(250)
+  .send(tasksOfUser[0]);
   /// res send tasks
   /// xml begirim bezarim tu p
 });

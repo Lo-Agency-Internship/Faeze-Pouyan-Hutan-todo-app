@@ -2,11 +2,9 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    /* font-family: 'Koulen', cursive; */
-    /* font-family: 'Macondo', cursive; */
- /* font-family: 'Raleway', sans-serif; */
-font-family: 'Water Brush', cursive;
+    font-family: 'Water Brush', cursive;
 }
+/****************************** login & register******************************************/  
 
 .row{
     background: white;
@@ -30,7 +28,8 @@ font-family: 'Water Brush', cursive;
     border-radius:60px;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
-.btn1{
+.btn1,
+.btn{
     height: 50px;
     width: 50%;
     border: none;
@@ -41,6 +40,10 @@ font-family: 'Water Brush', cursive;
     color: white;
 }
 .btn1:hover{
+    background-color: #15c2f6;
+    transition: 0.5s;
+}
+.btn:hover{
     background-color: #15c2f6;
     transition: 0.5s;
 }
@@ -61,3 +64,41 @@ font-family: 'Water Brush', cursive;
    font-weight: 600;
    font-size: 20px;
 } 
+
+/***********************************************404 page*********************************************************************/
+.container-404{
+    background-image: url("../images/404.jpg");
+    background-repeat: no-repeat;
+    color: black;
+   width:100vw;
+   height: 100vh;
+    text-align: center;
+    padding-top:100px;
+}
+h2{
+    font-weight: bold;
+    font-size:50px;
+    margin-left:33%;
+    margin-bottom: 2%;
+    margin-top:4%;
+}
+ .btn-404{
+    height: 50px;
+    width: 150px;
+    border-radius: 25px;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-left:32% ;
+    margin-top:1%;
+} 
+
+.btn-404:hover{
+    background: rgb(146, 50, 146);
+}
+pre{
+ 
+    margin-left: 40%;
+    color:rgba(73, 56, 232, 0.4);
+    font-weight: 200;
+
+}

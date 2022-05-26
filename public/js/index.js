@@ -1,4 +1,17 @@
-// const res = require("express/lib/response");
+let stateChechBox = false;
+
+function checkedBox(taskID) {
+  const checkbox = document.getElementById(`${taskID}`);
+  stateChechBox=true;
+
+}
+
+
+function OnDelete(taskId)
+{
+  let deleteBtn=document.getElementById(`${delbtn}`)
+deleteBtn.value=true;
+}
 
 function SetSession() {
   const idFromSesion = sessionStorage.getItem("id");
@@ -15,66 +28,60 @@ function SetSession() {
         const tasks = JSON.parse(response);
         console.log(tasks);
 
-        const taskName = document.getElementById('tasksTitleFromDB')
-        const taskDate = document.getElementById('tasksDateFromDB')
-        const taskIsDone = document.getElementById('tasksIsDone')
-        const taskCheckBox =  document.getElementById('tasksIsDone')
-        const deleteTask =  document.getElementById('deleteTask')
+
+        const root = document.getElementById("root");
         
-        tasks.forEach(item => {
-          const _taskName = document.createElement("p");
-          _taskName.innerHTML = `task title: ${item.taskTitle}`
-          taskName.appendChild(_taskName);
+        tasks.forEach((item) => {
 
-          const _taskDate = document.createElement("p");
-          _taskDate.innerHTML = `task Date: ${item.taskDate}`
-          taskDate.appendChild(_taskDate);
+          const bodyTask= document.createElement("div")
 
-          const _taskIsDone = document.createElement("input");
-          _taskIsDone.innerHTML = `task status: ${item.isDone}`
-          taskIsDone.appendChild(_taskIsDone);
+          bodyTask.setAttribute("id",item.id)
 
-          const _taskCheckBox = document.createElement("input");
-          _taskCheckBox.setAttribute("type", "checkbox")
-          _taskIsDone.innerHTML = `s`
-          taskCheckBox.appendChild(_taskCheckBox);
+    
+      bodyTask.innerHTML=`<div class="task d-flex align-content-center align-self-center ">
+                      <input id="task${item.id}" 
+                      
+                      class="form-check-input me-1" 
 
-          const _deleteTask = document.createElement("input");
-          _deleteTask.setAttribute("type", "button")
-          deleteTask.appendChild(_deleteTask);
-        });
-        
-        // console.log(task.taskTitle);
-        // console.log(task.taskDate);
+                      type="checkbox" value="false"
 
-        // const taskTile = Object.values(JSON.parse(task))[0];
-        // console.log(taskTile);
-        // const taskDate = Object.values(JSON.parse(task))[1];
-        // let taskIsDone = Object.values(JSON.parse(task))[2];
+                       onclick="checkedBox(${item.id})"
+            
+                        aria-label="...">
 
-        // console.log(Object.values(JSON.parse(task)));
-        //   if (Number(taskIsDone) === 0) {
-        //     taskIsDone = "Not Done";
-        //   } else {
-        //     taskIsDone = "Done";
-        //   }
-        //   document.querySelector(
-        //     "#tasksTitleFromDB"
-        //   ).innerHTML = `Task Title: ${taskTile}`;
-        //   document.querySelector(
-        //     "#tasksDateFromDB"
-        //   ).innerHTML = `Task Due Date: ${taskDate}`;
-        //   document.querySelector(
-        //     "#tasksIsDoneLabel"
-        //   ).innerHTML = `Task Status: ${taskIsDone}`;
-      }
-    };
+                      <div for="${item.id}" class="d-flex">
 
+                        <span><strong>Title:</strong></span>
+
+                        <div class="task-title mx-1">
+
+                        ${item.taskTitle}
+
+                        </div>
+
+                        <span><strong>Due Date:</strong></span>
+
+                        <div class="task-due mx-1" >
+
+                          <span>${item.taskDate} -</span>
+                                   
+                        </div>
+
+                        <button id="delbtn" onclick="OnDelete(${item.id}) value="false" > DELETE</button>
+
+                      </div>
+                    </div>`
+                    root.appendChild(bodyTask);
+
+         });
+    
+        }
+      };
     xhttp.open("POST", "/index/api", true);
 
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-    xhttp.send(JSON.stringify({ idFromSesion }));
+    xhttp.send(JSON.stringify({  idFromSesion   }),stateChechBox);
   }
 }
 
@@ -83,6 +90,7 @@ const saveTaskButton = document.getElementById("saveTask");
 
 saveTaskButton.addEventListener("click", (e) => {
   e.preventDefault();
+
   const xhttp = new XMLHttpRequest();
   const taskTitle = document.getElementById("task").value;
   const taskDate = document.getElementById("date").value;
@@ -99,4 +107,5 @@ saveTaskButton.addEventListener("click", (e) => {
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   xhttp.send(JSON.stringify({ taskObject, id }));
+  location.reload();
 });

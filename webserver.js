@@ -30,9 +30,13 @@ app.post("/:name(index|/)?", function (req, res) {
   );
 
   if (foundUser) {
-    console.log("hello")
+    delete userTasks["id"];
+    dataBaseFile[foundUser.id-1].task.push(Object.values(userTasks)[0]);
+      fs.writeFileSync(
+        path.join(__dirname, "dataBase/dataBase.json"),
+        JSON.stringify(dataBaseFile)
+      );
   }
-
 });
 
 // ----------------------------------------------------------------

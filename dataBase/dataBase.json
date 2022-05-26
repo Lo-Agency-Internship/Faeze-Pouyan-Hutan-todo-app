@@ -3,18 +3,16 @@
         "userName": "a",
         "email": "a@a.com",
         "passWord1": "a",
+        "task": [
+            {
+                "taskTitle": "aaa",
+                "taskDate": "2022-05-09"
+            },
+            {
+                "taskTitle": "bbb",
+                "taskDate": "2022-05-24"
+            }
+        ],
         "id": 1
-    },
-    {
-        "userName": "b",
-        "email": "b@b.com",
-        "passWord1": "b",
-        "id": 2
-    },
-    {
-        "userName": "z",
-        "email": "a@a.com",
-        "passWord1": "z",
-        "id": 3
     }
 ]

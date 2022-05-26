@@ -71,7 +71,7 @@ app.post("/:name(index|/)?/api", function (req, res) {
   console.log("task of user",tasksOfUser);
   res
   .status(250)
-  .send(tasksOfUser[0]);
+  .send(tasksOfUser);
   /// res send tasks
   /// xml begirim bezarim tu p
 });

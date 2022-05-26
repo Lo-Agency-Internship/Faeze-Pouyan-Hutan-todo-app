@@ -8,12 +8,13 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 const utils = require("./utils/utils");
 
-// ----------------------------------------------------------------
-// ----------- INDEX ----------------------------------------------
-// ----------------------------------------------------------------
+// ===================================================================
+// ============    INDEX       =======================================
+// ===================================================================
 
 app.post("/:name(index|/)?", function (req, res) {
   const userTasks = req.body;
+
   // -------------------------------------------
   // ----------read DataBase--------------------
   // -------------------------------------------
@@ -22,6 +23,7 @@ app.post("/:name(index|/)?", function (req, res) {
     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
   );
 
+  // ------------------------------------------
   // ---find user based on id in session-------
   // ------------------------------------------
 
@@ -33,8 +35,10 @@ app.post("/:name(index|/)?", function (req, res) {
   // // =============================================
   if (foundUser) {
     delete userTasks["id"];
+
     // ----------------------------------
     // --------Auto Increment------------
+    // ----------------------------------
 
     utils.autoIncremment(
       dataBaseFile[foundUser.id - 1].task,
@@ -49,11 +53,14 @@ app.post("/:name(index|/)?", function (req, res) {
   }
 });
 // ===================================================================
+// ============    INDEX /  API      =================================
+// ===================================================================
 
 app.post("/:name(index|/)?/api", function (req, res) {
   /// session id user
   const userIdFromSession = req.body;
-// console.log(userIdFromSession);
+  console.log(userIdFromSession);
+  
   // -------------------------------------------
   // ----------read DataBase--------------------
   // -------------------------------------------
@@ -68,13 +75,11 @@ app.post("/:name(index|/)?/api", function (req, res) {
 
   /// task load she
   const tasksOfUser = UserFound.task;
-  console.log("task of user",tasksOfUser);
-  res
-  .status(250)
-  .send(tasksOfUser);
+  res.status(250).send(tasksOfUser);
   /// res send tasks
   /// xml begirim bezarim tu p
 });
+
 // ----------------------------------------------------------------
 // ----------- REGISTER -------------------------------------------
 // ----------------------------------------------------------------

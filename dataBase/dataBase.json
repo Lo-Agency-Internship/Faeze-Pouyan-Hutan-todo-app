@@ -1,18 +1,2 @@
 [
-    {
-        "userName": "a",
-        "email": "a@a.com",
-        "passWord1": "a",
-        "task": [
-            {
-                "taskTitle": "aaa",
-                "taskDate": "2022-05-09"
-            },
-            {
-                "taskTitle": "bbb",
-                "taskDate": "2022-05-24"
-            }
-        ],
-        "id": 1
-    }
 ]

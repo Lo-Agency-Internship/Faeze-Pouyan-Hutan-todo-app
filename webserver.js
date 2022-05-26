@@ -31,11 +31,16 @@ app.post("/:name(index|/)?", function (req, res) {
 
   if (foundUser) {
     delete userTasks["id"];
-    dataBaseFile[foundUser.id-1].task.push(Object.values(userTasks)[0]);
-      fs.writeFileSync(
-        path.join(__dirname, "dataBase/dataBase.json"),
-        JSON.stringify(dataBaseFile)
-      );
+    // ----------------------------------
+    // --------Auto Increment------------
+
+    conditions.autoIncremment(dataBaseFile[foundUser.id - 1].task, Object.values(userTasks)[0]);
+
+    dataBaseFile[foundUser.id - 1].task.push(Object.values(userTasks)[0]);
+    fs.writeFileSync(
+      path.join(__dirname, "dataBase/dataBase.json"),
+      JSON.stringify(dataBaseFile)
+    );
   }
 });
 

@@ -1,6 +1,6 @@
 # Faeze-Pouyan-Hutan-todo-app
 
-![Logo](https://raw.githubusercontent.com/Lo-Agency-Internship/Faeze-Pouyan-Hutan-todo-app/main/public/images/favicon.png)
+
 
 
 # Welcome to Group B To do project

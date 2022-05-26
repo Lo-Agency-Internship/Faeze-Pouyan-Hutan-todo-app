@@ -53,7 +53,7 @@ app.post("/:name(index|/)?", function (req, res) {
 app.post("/:name(index|/)?/api", function (req, res) {
   /// session id user
   const userIdFromSession = req.body;
-
+// console.log(userIdFromSession);
   // -------------------------------------------
   // ----------read DataBase--------------------
   // -------------------------------------------

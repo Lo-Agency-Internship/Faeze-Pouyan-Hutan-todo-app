@@ -1,24 +1,20 @@
 function SetSession() {
   const idFromSesion = sessionStorage.getItem("id");
-  alert(typeof(idFromSesion))
   if (idFromSesion === null) {
     window.location.href = "../login.html";
+  } else {
+    const xhttp = new XMLHttpRequest();
+    /// read db for tasks
+
+    xhttp.open("POST", "/index/api", true);
+
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    xhttp.send(JSON.stringify({ idFromSesion }));
   }
-else{
-  const xhttp = new XMLHttpRequest();
-  /// read db for tasks
-
-  xhttp.open("POST", "/index/api", true);
-
-  xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-  xhttp.send(JSON.stringify({idFromSesion}));
-}
 }
 
-// ===============================================================================
-// ===============================================================================
-
+// =============================================================
 const saveTaskButton = document.getElementById("saveTask");
 
 saveTaskButton.addEventListener("click", (e) => {
@@ -31,7 +27,7 @@ saveTaskButton.addEventListener("click", (e) => {
   const taskObject = {
     taskTitle,
     taskDate,
-    isDone
+    isDone: 0
   };
 
   xhttp.open("POST", "/index", true);

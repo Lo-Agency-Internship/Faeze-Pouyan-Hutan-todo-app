@@ -11,7 +11,6 @@ const utils = require("./utils/utils");
 // ----------------------------------------------------------------
 // ----------- INDEX ----------------------------------------------
 // ----------------------------------------------------------------
-let sessionStorageUserID = "";
 
 app.post("/:name(index|/)?", function (req, res) {
   const userTasks = req.body;

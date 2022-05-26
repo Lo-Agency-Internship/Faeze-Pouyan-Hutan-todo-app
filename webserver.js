@@ -6,7 +6,7 @@ const path = require("path");
 const { isStringObject } = require("util/types");
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
-const conditions = require("./utils/registerCredentialsFunctions");
+const utils = require("./utils/utils");
 
 // ----------------------------------------------------------------
 // ----------- INDEX ----------------------------------------------
@@ -28,13 +28,53 @@ app.post("/:name(index|/)?", function (req, res) {
   const foundUser = dataBaseFile.find(
     (item) => Number(item.id) === Number(userTasks.id)
   );
-
+  // // =============================================
+  // sessionStorageUserID = Number(userTasks.id)
+  // // =============================================
   if (foundUser) {
-    console.log("hello")
+    delete userTasks["id"];
+    // ----------------------------------
+    // --------Auto Increment------------
+
+    utils.autoIncremment(
+      dataBaseFile[foundUser.id - 1].task,
+      Object.values(userTasks)[0]
+    );
+
+    dataBaseFile[foundUser.id - 1].task.push(Object.values(userTasks)[0]);
+    fs.writeFileSync(
+      path.join(__dirname, "dataBase/dataBase.json"),
+      JSON.stringify(dataBaseFile)
+    );
   }
-
 });
+// ===================================================================
 
+app.post("/:name(index|/)?/api", function (req, res) {
+  /// session id user
+  const userIdFromSession = req.body;
+
+  // -------------------------------------------
+  // ----------read DataBase--------------------
+  // -------------------------------------------
+
+  const dataBaseFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+  );
+
+  const UserFound = dataBaseFile.find(
+    (item) => Number(item.id) === Number(Object.values(userIdFromSession))
+  );
+
+  /// task load she
+  const tasksOfUser = UserFound.task;
+  console.log("task of user",tasksOfUser);
+  res
+  .status(250)
+  .send(tasksOfUser);
+  /// res send tasks
+  /// xml begirim bezarim tu p
+});
 // ----------------------------------------------------------------
 // ----------- REGISTER -------------------------------------------
 // ----------------------------------------------------------------
@@ -73,25 +113,23 @@ app.post("/register", function (req, res) {
     // ----------------------------------
     // --------Auto Increment------------
 
-    conditions.autoIncremment(dataBaseFile, UserSubmitedCredentialsObj);
+    utils.autoIncremment(dataBaseFile, UserSubmitedCredentialsObj);
 
     // ---------------------------------------
     // ---------CHECK USERNAME FUNC-----------
 
-    let checkUserName = conditions.ValidateName(
-      UserSubmitedCredentialsObj.userName
-    );
+    let checkUserName = utils.ValidateName(UserSubmitedCredentialsObj.userName);
 
     // --------------------------------------
     // ----------CHECK Email FUNC------------
 
-    let checkEmail = conditions.ValidateEmail(UserSubmitedCredentialsObj.email);
+    let checkEmail = utils.ValidateEmail(UserSubmitedCredentialsObj.email);
 
     // -----------------------------------------
     // ----------CHECK Password FUNC------------
     // -----------------------------------------
 
-    let checkPassword = conditions.comparePasswords(
+    let checkPassword = utils.comparePasswords(
       UserSubmitedCredentialsObj.passWord1,
       UserSubmitedCredentialsObj.passWord2
     );

@@ -1,5 +1,8 @@
 // const res = require("express/lib/response");
 
+
+
+
 function SetSession() {
   const idFromSesion = sessionStorage.getItem("id");
   if (idFromSesion === null) {
@@ -83,6 +86,7 @@ const saveTaskButton = document.getElementById("saveTask");
 
 saveTaskButton.addEventListener("click", (e) => {
   e.preventDefault();
+  
   const xhttp = new XMLHttpRequest();
   const taskTitle = document.getElementById("task").value;
   const taskDate = document.getElementById("date").value;
@@ -99,4 +103,5 @@ saveTaskButton.addEventListener("click", (e) => {
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   xhttp.send(JSON.stringify({ taskObject, id }));
+  location.reload();
 });

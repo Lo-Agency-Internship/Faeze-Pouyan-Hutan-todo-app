@@ -6,7 +6,7 @@ const path = require("path");
 const { isStringObject } = require("util/types");
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
-const conditions = require("./utils/registerCredentialsFunctions");
+const utils = require("./utils/utils");
 
 // ----------------------------------------------------------------
 // ----------- INDEX ----------------------------------------------
@@ -34,7 +34,7 @@ app.post("/:name(index|/)?", function (req, res) {
     // ----------------------------------
     // --------Auto Increment------------
 
-    conditions.autoIncremment(dataBaseFile[foundUser.id - 1].task, Object.values(userTasks)[0]);
+    utils.autoIncremment(dataBaseFile[foundUser.id - 1].task, Object.values(userTasks)[0]);
 
     dataBaseFile[foundUser.id - 1].task.push(Object.values(userTasks)[0]);
     fs.writeFileSync(
@@ -82,25 +82,25 @@ app.post("/register", function (req, res) {
     // ----------------------------------
     // --------Auto Increment------------
 
-    conditions.autoIncremment(dataBaseFile, UserSubmitedCredentialsObj);
+    utils.autoIncremment(dataBaseFile, UserSubmitedCredentialsObj);
 
     // ---------------------------------------
     // ---------CHECK USERNAME FUNC-----------
 
-    let checkUserName = conditions.ValidateName(
+    let checkUserName = utils.ValidateName(
       UserSubmitedCredentialsObj.userName
     );
 
     // --------------------------------------
     // ----------CHECK Email FUNC------------
 
-    let checkEmail = conditions.ValidateEmail(UserSubmitedCredentialsObj.email);
+    let checkEmail = utils.ValidateEmail(UserSubmitedCredentialsObj.email);
 
     // -----------------------------------------
     // ----------CHECK Password FUNC------------
     // -----------------------------------------
 
-    let checkPassword = conditions.comparePasswords(
+    let checkPassword = utils.comparePasswords(
       UserSubmitedCredentialsObj.passWord1,
       UserSubmitedCredentialsObj.passWord2
     );

@@ -1,4 +1,17 @@
 // =============================================================
+// ==================    LOGOUT        =========================
+// =============================================================
+const btnLogout= document.getElementById("btnLogout");
+btnLogout.addEventListener('click',(e)=>
+{
+  e.preventDefault();
+  sessionStorage.removeItem("id");
+  location.reload();
+
+})
+
+
+// =============================================================
 // ==================    SAVE TASKS    =========================
 // =============================================================
 
@@ -36,7 +49,7 @@ function SetSession() {
     window.location.href = "../login.html";
   } else {
     const xhttp = new XMLHttpRequest();
-
+    
     // read db for tasks
     // ------------------
 

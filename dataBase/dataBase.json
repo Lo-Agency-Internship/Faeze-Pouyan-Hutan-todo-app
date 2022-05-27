@@ -1,1 +1,1 @@
-[{"userName":"a","email":"a@a.com","passWord1":"a","task":[{"taskTitle":"a","taskDate":"2022-01-01","isDone":"NOT DONE","id":1},{"taskTitle":"b","taskDate":"2022-05-04","isDone":"NOT DONE","id":2}],"id":1},{"userName":"x","email":"xperia990@yahoo.com","passWord1":"x","task":[{"taskTitle":"qqq","taskDate":"2022-05-10","isDone":"IS DONE","id":1}],"id":2}]
+[{"userName":"a","email":"a@a.com","passWord1":"a","task":[],"id":1},{"userName":"x","email":"xperia990@yahoo.com","passWord1":"x","task":[{"taskTitle":"qqq","taskDate":"2022-05-10","isDone":"IS DONE","id":1}],"id":2}]

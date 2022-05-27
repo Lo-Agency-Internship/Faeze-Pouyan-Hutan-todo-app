@@ -1,104 +1,134 @@
-*{
+*,
+*:before,
+*:after{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Water Brush', cursive;
 }
-/****************************** login & register******************************************/  
-
-.row{
-    background: white;
-    border-radius: 30px;
-    box-shadow: 12px 12px 22px ;
+body{
+    background-color: #080710;
 }
-.login img{
-    border-top-left-radius:30px ;
-    border-top-right-radius:30px ;
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
 }
-.login h1{
-    font-size: 50px;
-    font-weight: 200;
-    font-family: 'Water Brush', cursive;
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
 }
-.inp{
-    height: 50px;
-    width: 70%;
-    border: none;
-    outline: none;
-    border-radius:60px;
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-}
-.btn1,
-.btn{
-    height: 50px;
-    width: 50%;
-    border: none;
-    outline: none;
-    border-radius: 60px;
-    font-weight: 600;
-    background-color: rgb(70, 43, 229);
-    color: white;
-}
-.btn1:hover{
-    background-color: #15c2f6;
-    transition: 0.5s;
-}
-.btn:hover{
-    background-color: #15c2f6;
-    transition: 0.5s;
-}
-.message{
-    font-size: 16px;
-    color: black;
-    margin: 15px;
-    cursor: pointer;
-
-}
-.message a{
-    text-decoration: none;
-    color: black;
-
-}
-.message a:hover{
-   color: rgb(70, 43, 229);
-   font-weight: 600;
-   font-size: 20px;
-} 
-
-/***********************************************404 page*********************************************************************/
-.container-404{
-    background-image: url("../images/404.jpg");
-    background-repeat: no-repeat;
-    color: black;
-   width:100vw;
-   height: 100vh;
-    text-align: center;
-    padding-top:100px;
+h1{
+        /* background: -webkit-linear-gradient(#dcdde0, #524f4e);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; */
+        
+        color: #dcdde0;
 }
 h2{
-    font-weight: bold;
-    font-size:50px;
-    margin-left:33%;
-    margin-bottom: 2%;
-    margin-top:4%;
+    font-size: 32px;
+    line-height: 42px;
+    text-align: center;
+    color: white;
 }
- .btn-404{
+h3{
+    background: -webkit-linear-gradient(#f09819, #ff512f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    height: 15%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: -80px;
+    top: 80px;
+}
+
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -80px;
+    bottom: 70px;
+}
+form{
+    height: 520px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+
+
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
     height: 50px;
-    width: 150px;
-    border-radius: 25px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
     font-size: 14px;
-    text-transform: uppercase;
-    margin-left:32% ;
-    margin-top:1%;
-} 
-
-.btn-404:hover{
-    background: rgb(146, 50, 146);
+    font-weight: 300;
 }
-pre{
- 
-    margin-left: 40%;
-    color:rgba(73, 56, 232, 0.4);
-    font-weight: 200;
-
+::placeholder{
+    color: #e5e5e5;
 }
+button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: rgba(255,255,255,0.47);
+}
+
+.createAccount{
+    
+  margin-top: 30px;
+  display: flex;
+}
+
+

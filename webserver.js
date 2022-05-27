@@ -30,9 +30,7 @@ app.post("/:name(index|/)?", function (req, res) {
   const foundUser = dataBaseFile.find(
     (item) => Number(item.id) === Number(userTasks.id)
   );
-  // // =============================================
-  // sessionStorageUserID = Number(userTasks.id)
-  // // =============================================
+
   if (foundUser) {
     delete userTasks["id"];
 
@@ -57,11 +55,11 @@ app.post("/:name(index|/)?", function (req, res) {
 // ===================================================================
 
 app.post("/:name(index|/)?/api", function (req, res) {
-  /// session id user
+  // receive user id from session
+  // ----------------------------
+
   const userIdFromSession = req.body;
-  console.log(userIdFromSession);
-  
-  // -------------------------------------------
+
   // ----------read DataBase--------------------
   // -------------------------------------------
 
@@ -69,20 +67,188 @@ app.post("/:name(index|/)?/api", function (req, res) {
     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
   );
 
+  // find user from db based on id from session storage
+  // --------------------------------------------------
   const UserFound = dataBaseFile.find(
     (item) => Number(item.id) === Number(Object.values(userIdFromSession))
   );
 
-  /// task load she
+  // save to varialble and send tasks of the found user
+  //----------------------------------------------------
   const tasksOfUser = UserFound.task;
   res.status(250).send(tasksOfUser);
-  /// res send tasks
-  /// xml begirim bezarim tu p
 });
 
-// ----------------------------------------------------------------
-// ----------- REGISTER -------------------------------------------
-// ----------------------------------------------------------------
+// ===================================================================
+// =====    INDEX / TASK EDIT TO IS DONE /  API      =================
+// ===================================================================
+
+app.post("/:name(index|/)?/taskEditDone/api", function (req, res) {
+  // receive task id in req body
+  // receive user id stored in req body (from session storage)
+  // -------------------------------------------------------
+
+  const userAndTaskId = req.body;
+
+  // ----------read DataBase--------------------
+  // -------------------------------------------
+
+  const dataBaseFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+  );
+
+  // find user from db based on id from session storage stored in req body
+  // ---------------------------------------------------------------------
+  const UserFound = dataBaseFile.find(
+    (item) => Number(item.id) === Number(Object.values(userAndTaskId)[0])
+  );
+
+  //if user user is found, edit the related task
+  // -------------------------------------------
+  if (UserFound) {
+    const theTaskToEdit = UserFound.task.find(
+      (item) => item.id === Object.values(userAndTaskId)[1]
+    );
+
+    theTaskToEdit.isDone = "IS DONE";
+
+    //rewrite the database
+    // -------------------
+    fs.writeFileSync(
+      path.join(__dirname, "dataBase/dataBase.json"),
+      JSON.stringify(dataBaseFile)
+    );
+  }
+});
+
+// ===================================================================
+// =====    INDEX / TASK EDIT TO NOT DONE /  API      =================
+// ===================================================================
+
+app.post("/:name(index|/)?/taskEditNotDone/api", function (req, res) {
+  // receive task id in req body
+  // receive user id from session storage stored in req body
+  // -------------------------------------------------------
+
+  const userAndTaskId = req.body;
+
+  // ----------read DataBase--------------------
+  // -------------------------------------------
+
+  const dataBaseFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+  );
+
+  // find user from db based on id from session storage stored in req body
+  // ---------------------------------------------------------------------
+  const UserFound = dataBaseFile.find(
+    (item) => Number(item.id) === Number(Object.values(userAndTaskId)[0])
+  );
+
+  //if user user is found, edit the related task
+  // -------------------------------------------
+  if (UserFound) {
+    const theTaskToEdit = UserFound.task.find(
+      (item) => item.id === Object.values(userAndTaskId)[1]
+    );
+
+    theTaskToEdit.isDone = "NOT DONE";
+
+    //rewrite the database
+    // -------------------
+    fs.writeFileSync(
+      path.join(__dirname, "dataBase/dataBase.json"),
+      JSON.stringify(dataBaseFile)
+    );
+  }
+});
+
+// ===================================================================
+// ============    INDEX / TASK DELETE /  API      ===================
+// ===================================================================
+
+app.post("/:name(index|/)?/taskDelete/api", function (req, res) {
+  // receive task id in req body
+  // receive user id from session storage stored in req body
+  // -------------------------------------------------------
+
+  const userAndTaskId = req.body;
+
+  // ----------read DataBase--------------------
+  // -------------------------------------------
+
+  const dataBaseFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+  );
+
+  // find user from db based on id from session storage stored in req body
+  // ---------------------------------------------------------------------
+  const UserFound = dataBaseFile.find(
+    (item) => Number(item.id) === Number(Object.values(userAndTaskId)[0])
+  );
+
+  //if user user is found, delete the related task
+  // -------------------------------------------
+  if (UserFound) {
+    const theTaskToDelete = UserFound.task.find(
+      (item) => item.id === Object.values(userAndTaskId)[1]
+    );
+
+    index = UserFound.task.findIndex(
+      (item) => item.id === Object.values(userAndTaskId)[1]
+    );
+
+    UserFound.task.splice(index, 1);
+
+    //rewrite the database
+    // -------------------
+    fs.writeFileSync(
+      path.join(__dirname, "dataBase/dataBase.json"),
+      JSON.stringify(dataBaseFile)
+    );
+  }
+});
+
+// ===================================================================
+// ============    INDEX / SHOW /  WEEKLY      ===================
+// ===================================================================
+
+app.post("/:name(index|/)?/show/weekly", function (req, res) {
+  
+  // receive user id from session storage stored in req body
+  // -------------------------------------------------------
+  const userIdFromSession = req.body;
+
+  // ----------read DataBase--------------------
+  // -------------------------------------------
+
+  const dataBaseFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+  );
+
+  // find user from db based on id from session storage
+  // --------------------------------------------------
+  const UserFound = dataBaseFile.find(
+    (item) => Number(item.id) === Number(Object.values(userIdFromSession))
+  );
+
+  // save to varialble and send tasks of the found user
+  //---------------------------------------------------
+  const tasksOfUser = UserFound.task;
+  res.status(250).send(tasksOfUser);
+});
+
+// ===================================================================
+// ============    INDEX / SHOW /  MONTHLY      ===================
+// ===================================================================
+
+app.post("/:name(index|/)?/show/monthly", function (req, res) {
+
+});
+
+// ===================================================================
+// ====================     REGISTER     =============================
+// ===================================================================
 
 app.get("/register", function (req, res) {
   res.sendFile(path.join(__dirname, "/public", "register.html"));
@@ -165,9 +331,9 @@ app.post("/register", function (req, res) {
   }
 });
 
-// ----------------------------------------------------------------
-// ----------- LOGIN ----------------------------------------------
-// ----------------------------------------------------------------
+// ===================================================================
+// ====================      LOGIN       =============================
+// ===================================================================
 
 app.get("/login", function (req, res) {
   res.sendFile(path.join(__dirname, "/public", "login.html"));
@@ -222,13 +388,9 @@ app.post("/login", function (req, res) {
 //   );
 // });
 
-// --------------------------------------------------
-// --------------------------------------------------
-
-//
-
-// --------------------------------------------------
-// ---------------404 PAGE---------------------------
+// ===================================================================
+// ====================     404     ==================================
+// ===================================================================
 
 app.use((req, res) => {
   res.status(404).sendFile("./public/404.html", { root: __dirname });
@@ -236,6 +398,7 @@ app.use((req, res) => {
 
 // --------------------------------------------------
 // ---------------LISTEN PORT------------------------
+// --------------------------------------------------
 
 app.listen(3000, () => {
   console.log("server listening on 3000 port");

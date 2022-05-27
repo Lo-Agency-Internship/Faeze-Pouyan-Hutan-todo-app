@@ -16,10 +16,16 @@
     <input type="date" id="date" name="date" />
     <button id="saveTask" type="submit">Save</button>
   </div>
+  <br>
+  <div>
+    <p>Show tasks:</p>
+    <button id="weekly" type="submit" onclick="weekly()">Weekly</button>
+    <button id="monthly" type="submit" onclick="monthly()">Monthly</button>
+  </div>
 
 
-<div id="root" class="root"></div>
-
+  <div id="root" class="root"></div>
+  <div id="calendar"></div>
 
   <script src="js/index.js"></script>
 </body>

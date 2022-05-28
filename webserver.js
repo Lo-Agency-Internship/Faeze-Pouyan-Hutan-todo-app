@@ -83,7 +83,7 @@ app.post("/:name(index|/)?/api", function (req, res) {
 // =====    INDEX / TASK EDIT TO IS DONE /  API      =================
 // ===================================================================
 
-app.post("/:name(index|/)?/taskEditDone/api", function (req, res) {
+app.post("/:name(index|/)?/api/taskEditDone", function (req, res) {
   // receive task id in req body
   // receive user id stored in req body (from session storage)
   // -------------------------------------------------------
@@ -125,7 +125,7 @@ app.post("/:name(index|/)?/taskEditDone/api", function (req, res) {
 // =====    INDEX / TASK EDIT TO NOT DONE /  API      =================
 // ===================================================================
 
-app.post("/:name(index|/)?/taskEditNotDone/api", function (req, res) {
+app.post("/:name(index|/)?/api/taskEditNotDone", function (req, res) {
   // receive task id in req body
   // receive user id from session storage stored in req body
   // -------------------------------------------------------
@@ -167,7 +167,7 @@ app.post("/:name(index|/)?/taskEditNotDone/api", function (req, res) {
 // ============    INDEX / TASK DELETE /  API      ===================
 // ===================================================================
 
-app.post("/:name(index|/)?/taskDelete/api", function (req, res) {
+app.post("/:name(index|/)?/api/taskDelete", function (req, res) {
   // receive task id in req body
   // receive user id from session storage stored in req body
   // -------------------------------------------------------
@@ -210,41 +210,146 @@ app.post("/:name(index|/)?/taskDelete/api", function (req, res) {
 });
 
 // ===================================================================
+// ============    INDEX / SHOW /  MONTHLY      ======================
+// ===================================================================
+
+app.post("/:name(index|/)?/api/show/monthly", function (req, res) {
+  res.status(250).send();
+});
+
+// ======================================================================
+// =====    INDEX / SHOW /  MONTHLY   specificMonth   ===================
+// ======================================================================
+
+app.post(
+  "/:name(index|/)?/api/show/monthly/specificMonth",
+  function (req, res) {
+    // receive user id from session storage stored in req body
+    // -------------------------------------------------------
+    const userIdMonthNumber = req.body;
+
+    // ----------read DataBase--------------------
+    // -------------------------------------------
+
+    const dataBaseFile = JSON.parse(
+      fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
+    );
+
+    // find user from db based on id from session storage
+    // --------------------------------------------------
+
+    const UserFound = dataBaseFile.find(
+      (item) => Number(item.id) === Number(Object.values(userIdMonthNumber)[0])
+    );
+
+    // save to varialble and send tasks of the found user
+    //---------------------------------------------------
+
+    const tasksOfUser = UserFound.task;
+    
+    let month1 = [];
+    let month2 = [];
+    let month3 = [];
+    let month4 = [];
+    let month5 = [];
+    let month6 = [];
+    let month7 = [];
+    let month8 = [];
+    let month9 = [];
+    let month10 = [];
+    let month11 = [];
+    let month12 = [];
+
+    tasksOfUser.forEach((item) => {
+      switch (Number(item.taskDate.split("-")[1])) {
+        case 1:
+          month1.push(item);
+          break;
+        case 2:
+          month2.push(item);
+          break;
+        case 3:
+          month3.push(item);
+          break;
+        case 4:
+          month4.push(item);
+          break;
+        case 5:
+          month5.push(item);
+          break;
+        case 6:
+          month6.push(item);
+          break;
+        case 7:
+          month7.push(item);
+          break;
+        case 8:
+          month8.push(item);
+          break;
+        case 9:
+          month9.push(item);
+          break;
+        case 10:
+          month10.push(item);
+          break;
+        case 11:
+          month11.push(item);
+          break;
+        case 12:
+          month12.push(item);
+          break;
+        default:
+          break;
+      }
+    });
+    let monthNum = Number(Object.values(userIdMonthNumber)[1]);
+    switch (Number(monthNum)) {
+      case 1:
+        res.send(month1);
+        break;
+      case 2:
+        res.send(month2);
+        break;
+      case 3:
+        res.send(month3);
+        break;
+      case 4:
+        res.send(month4);
+        break;
+      case 5:
+        res.send(month5);
+        break;
+      case 6:
+        res.send(month6);
+        break;
+      case 7:
+        res.send(month7);
+        break;
+      case 8:
+        res.send(month8);
+        break;
+      case 9:
+        res.send(month9);
+        break;
+      case 10:
+        res.send(month10);
+        break;
+      case 11:
+        res.send(month11);
+        break;
+      case 12:
+        res.send(month12);
+        break;
+      default:
+        break;
+    }
+  }
+);
+// ===================================================================
 // ============    INDEX / SHOW /  WEEKLY      ===================
 // ===================================================================
 
-app.post("/:name(index|/)?/show/weekly", function (req, res) {
-  
-  // receive user id from session storage stored in req body
-  // -------------------------------------------------------
-  const userIdFromSession = req.body;
-
-  // ----------read DataBase--------------------
-  // -------------------------------------------
-
-  const dataBaseFile = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
-  );
-
-  // find user from db based on id from session storage
-  // --------------------------------------------------
-  const UserFound = dataBaseFile.find(
-    (item) => Number(item.id) === Number(Object.values(userIdFromSession))
-  );
-
-  // save to varialble and send tasks of the found user
-  //---------------------------------------------------
-  const tasksOfUser = UserFound.task;
-  res.status(250).send(tasksOfUser);
-});
-
-// ===================================================================
-// ============    INDEX / SHOW /  MONTHLY      ===================
-// ===================================================================
-
-app.post("/:name(index|/)?/show/monthly", function (req, res) {
-
-});
+app.post("/:name(index|/)?/api/show/weekly", function (req, res) {});
 
 // ===================================================================
 // ====================     REGISTER     =============================
@@ -371,22 +476,6 @@ app.post("/login", function (req, res) {
     res.status(666).sendFile(path.join(__dirname, "/public", "login.html"));
   }
 });
-
-// --------------------------------------------------
-// -------------Data Base Operations-----------------
-
-// app.get("/dataBaseOperations", function (req, res) {
-//   const dataBaseFile = JSON.parse(
-//     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
-//   );
-//   res.json(dataBaseFile);
-// });
-
-// app.post("/dataBaseOperations", function (req, res) {
-//   const dataBaseFile = JSON.parse(
-//     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
-//   );
-// });
 
 // ===================================================================
 // ====================     404     ==================================

@@ -1,33 +1,58 @@
 
-# Welcome to Group B To do project
+# Welcome to Group B To-Do project
 
 # Project Title
  Tick Task
 
 ## Introduction
-Here you can find a example of a Todo list web app which EXPRESS.JS to communicate with its back end. The app uses:
+Here you can find a example of a Todo list web app which EXPRESS.JS to communicate with its back end.\
 
-
-
-- HTML,CSS,Bootstrap 5 for its front end.
-- EXPRESS.JS for its back end.
+The app uses:
+- HTML, CSS, and Bootstrap 5
+- JavaScript, Node.js, Express.js framework for its back end.
  
-
-Our users should be able to:
+Our users are able to:
 - Login/Register to the application.
 - Add daily tasks for themselves.
 - Assign a due date of completion.
-- mark tasks as compele/incompelet.
-- view weekly/monthly statisctis of their to-dos.
+- Mark tasks as compele/incompelet.
+- View weekly/monthly statisctis of their to-dos.
 
 
 ## Installation 
+
+1-Clone the project
+
+```bash
+git@github.com:Lo-Agency-Internship/Faeze-Pouyan-Hutan-todo-app.git
+```
+
+2-install express
+
+```bash
+npm install express
+```
+
+3-run the project with npm
+
+```bash
+npm run start
+```
+
+4- go to the main page
+
+```bash
+go to http://localhost:3000/
+```
+
+
 Clone the project
 
 ```git@github.com:Lo-Agency-Internship/Faeze-Pouyan-Hutan-todo-app.git```
 run command ```npm i express```
+
 ## Giving feedback
-feedback is always welcome, so if you have any to give on this project please tell to our team.
+Feedback is always welcomed, so if you have any, please contact our team.
 
 ## Authors
 

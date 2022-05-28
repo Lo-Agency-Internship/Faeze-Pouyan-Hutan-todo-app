@@ -25,7 +25,9 @@ Our users should be able to:
 Clone the project
 `
 git@github.com:Lo-Agency-Internship/Faeze-Pouyan-Hutan-todo-app.git
+
 `
+run command ```npm i express```
 ## Giving feedback
 feedback is always welcome, so if you have any to give on this project please tell to our team.
 

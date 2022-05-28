@@ -20,6 +20,7 @@ Our users are able to:
 
 
 ## Installation 
+
 1-Clone the project
 
 ```bash
@@ -43,6 +44,12 @@ npm run start
 ```bash
 go to http://localhost:3000/
 ```
+
+
+Clone the project
+
+```git@github.com:Lo-Agency-Internship/Faeze-Pouyan-Hutan-todo-app.git```
+run command ```npm i express```
 
 ## Giving feedback
 Feedback is always welcomed, so if you have any, please contact our team.

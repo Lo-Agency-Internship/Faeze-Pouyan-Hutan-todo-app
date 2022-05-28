@@ -83,7 +83,7 @@ app.post("/:name(index|/)?/api", function (req, res) {
 // =====    INDEX / TASK EDIT TO IS DONE /  API      =================
 // ===================================================================
 
-app.post("/:name(index|/)?/taskEditDone/api", function (req, res) {
+app.post("/:name(index|/)?/api/taskEditDone", function (req, res) {
   // receive task id in req body
   // receive user id stored in req body (from session storage)
   // -------------------------------------------------------
@@ -125,7 +125,7 @@ app.post("/:name(index|/)?/taskEditDone/api", function (req, res) {
 // =====    INDEX / TASK EDIT TO NOT DONE /  API      =================
 // ===================================================================
 
-app.post("/:name(index|/)?/taskEditNotDone/api", function (req, res) {
+app.post("/:name(index|/)?/api/taskEditNotDone", function (req, res) {
   // receive task id in req body
   // receive user id from session storage stored in req body
   // -------------------------------------------------------
@@ -167,7 +167,7 @@ app.post("/:name(index|/)?/taskEditNotDone/api", function (req, res) {
 // ============    INDEX / TASK DELETE /  API      ===================
 // ===================================================================
 
-app.post("/:name(index|/)?/taskDelete/api", function (req, res) {
+app.post("/:name(index|/)?/api/taskDelete", function (req, res) {
   // receive task id in req body
   // receive user id from session storage stored in req body
   // -------------------------------------------------------
@@ -213,7 +213,7 @@ app.post("/:name(index|/)?/taskDelete/api", function (req, res) {
 // ============    INDEX / SHOW /  WEEKLY      ===================
 // ===================================================================
 
-app.post("/:name(index|/)?/show/weekly", function (req, res) {
+app.post("/:name(index|/)?/api/show/weekly", function (req, res) {
   
   // receive user id from session storage stored in req body
   // -------------------------------------------------------
@@ -242,7 +242,7 @@ app.post("/:name(index|/)?/show/weekly", function (req, res) {
 // ============    INDEX / SHOW /  MONTHLY      ===================
 // ===================================================================
 
-app.post("/:name(index|/)?/show/monthly", function (req, res) {
+app.post("/:name(index|/)?/api/show/monthly", function (req, res) {
 
 });
 
@@ -372,21 +372,6 @@ app.post("/login", function (req, res) {
   }
 });
 
-// --------------------------------------------------
-// -------------Data Base Operations-----------------
-
-// app.get("/dataBaseOperations", function (req, res) {
-//   const dataBaseFile = JSON.parse(
-//     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
-//   );
-//   res.json(dataBaseFile);
-// });
-
-// app.post("/dataBaseOperations", function (req, res) {
-//   const dataBaseFile = JSON.parse(
-//     fs.readFileSync(path.join(__dirname, "/dataBase/dataBase.json"), "utf-8")
-//   );
-// });
 
 // ===================================================================
 // ====================     404     ==================================

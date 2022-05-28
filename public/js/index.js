@@ -40,7 +40,7 @@ saveTaskButton.addEventListener("click", (e) => {
 });
 
 // =============================================================
-// ===   SHOW TASKS  BASES ON SESSION STORAGE ID OF USER   =====
+// ===   SHOW TASKS BASES ON SESSION STORAGE ID OF USER   =====
 // =============================================================
 
 function SetSession() {
@@ -116,7 +116,7 @@ function checkedBoxDone(taskID) {
   else {
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open("POST", "/index/taskEditDone/api", true);
+    xhttp.open("POST", "/index/api/taskEditDone", true);
 
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
@@ -144,7 +144,7 @@ function checkedBoxNotDone(taskID) {
   else {
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open("POST", "/index/taskEditNotDone/api", true);
+    xhttp.open("POST", "/index/api/taskEditNotDone", true);
 
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
@@ -172,7 +172,7 @@ function OnDelete(taskId) {
   else {
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open("POST", "/index/taskDelete/api", true);
+    xhttp.open("POST", "/index/api/taskDelete", true);
 
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
@@ -203,21 +203,12 @@ function weekly() {
 
         const tasks = JSON.parse(response);
 
-        var groupBy = function (xs, key) {
-          return tasks.reduce(function (rv, x) {
-            (rv[x[key]] = rv[x[key]] || []).push(x);
-            return rv;
-          }, {});
-        };
-
-        console.log(groupBy(["one", "two", "three"], "length"));
-
-        // tasks.forEach((item) => {
-        //   console.log(item.taskDate)
-        // });
+        tasks.forEach((item) => {
+          console.log(item.taskDate)
+        });
       }
     };
-    xhttp.open("POST", "/index/show/weekly", true);
+    xhttp.open("POST", "/index/api/show/weekly", true);
 
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
@@ -239,7 +230,7 @@ function monthly() {
   } else {
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open("POST", "/index/show/monthly", true);
+    xhttp.open("POST", "/index/api/show/monthly", true);
 
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 

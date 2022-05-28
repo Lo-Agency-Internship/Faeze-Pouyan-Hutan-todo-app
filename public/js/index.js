@@ -1,15 +1,12 @@
 // =============================================================
 // ==================    LOGOUT        =========================
 // =============================================================
-const btnLogout= document.getElementById("btnLogout");
-btnLogout.addEventListener('click',(e)=>
-{
+const btnLogout = document.getElementById("btnLogout");
+btnLogout.addEventListener("click", (e) => {
   e.preventDefault();
   sessionStorage.removeItem("id");
   location.reload();
-
-})
-
+});
 
 // =============================================================
 // ==================    SAVE TASKS    =========================
@@ -49,14 +46,14 @@ function SetSession() {
     window.location.href = "../login.html";
   } else {
     const xhttp = new XMLHttpRequest();
-    
+
     // read db for tasks
     // ------------------
 
     xhttp.onload = () => {
       if ((xhttp.status = 250)) {
         const response = xhttp.responseText;
-        
+
         const tasks = JSON.parse(response);
 
         const root = document.getElementById("root");
@@ -182,6 +179,109 @@ function OnDelete(taskId) {
 }
 
 // ===================================================================
+// =================  Filter TASKS MONTHLY ============================
+// ===================================================================
+
+function monthly() {
+  // set user id from session
+  const idFromSesion = sessionStorage.getItem("id");
+
+  // check if user is logged in
+  if (idFromSesion === null) {
+    window.location.href = "../login.html";
+  } else {
+    const xhttp = new XMLHttpRequest();
+
+    // show user options from month 1 to 12 and send the number to server
+    // ------------------------------------------------------------------
+    xhttp.onload = () => {
+      if ((xhttp.status = 250)) {
+        const rootTop = document.getElementById("rootTop");
+        for (let index = 1; index <= 12; index++) {
+          const filteredMonths = document.createElement("div");
+          filteredMonths.innerHTML = `<div>
+                                       <button onclick="inSideMonth(${index})">
+                                       MONTH:${index}
+                                       </button>
+                                       <div>
+                                       </div>
+                                     </div>`;
+          rootTop.appendChild(filteredMonths);
+        }
+      }
+    };
+    xhttp.open("POST", "/index/api/show/monthly", true);
+
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    xhttp.send(JSON.stringify({ idFromSesion }));
+  }
+}
+
+// ===================================================================
+// =================  TASKS inside MONTHs ============================
+// ===================================================================
+
+function inSideMonth(number) {
+  // set user id from session
+  const idFromSesion = sessionStorage.getItem("id");
+
+  const element = document.querySelector(".tasksOfMonth");
+  
+  if(element){
+    for (let index = 0; index < element.length; index++) {
+      element[index].removeItem(); 
+    }
+  }
+
+
+  // index of month
+  let month = number;
+
+  // check if user is logged in
+  if (idFromSesion === null) {
+    window.location.href = "../login.html";
+  }
+  // send id of user and number of month
+  else {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.onload = () => {
+      if (true) {
+        const monthTasks = xhttp.responseText;
+        console.log("a", monthTasks);
+        const calendarTop = document.getElementById("calendarTop");
+        JSON.parse(monthTasks).forEach((element) => {
+          const filteredTasks = document.createElement("div");
+          filteredTasks.innerHTML = `<div class="tasksOfMonth">
+                                          <hr>
+                                          <div>
+                                            Task title:${element.taskTitle}
+                                          </div>
+                                          <hr>
+                                          <div>
+                                            Task due date:${element.taskDate}
+                                          </div>
+                                          <hr>
+                                          <div>
+                                            Task status:${element.isDone}
+                                          </div>
+                                          <hr>
+                                     </div>`;
+          calendarTop.appendChild(filteredTasks);
+        });
+      }
+    };
+
+    xhttp.open("POST", "/index/api/show/monthly/specificMonth", true);
+
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    xhttp.send(JSON.stringify({ idFromSesion, month }));
+  }
+}
+
+// ===================================================================
 // =================  Filter TASKS WEEKLY ============================
 // ===================================================================
 
@@ -194,41 +294,9 @@ function weekly() {
     window.location.href = "../login.html";
   } else {
     const xhttp = new XMLHttpRequest();
-
     // read db for tasks
     // ------------------
-    xhttp.onload = () => {
-      if ((xhttp.status = 250)) {
-        const response = xhttp.responseText;
-
-        const tasks = JSON.parse(response);
-
-        tasks.forEach((item) => {
-          console.log(item.taskDate)
-        });
-      }
-    };
-    xhttp.open("POST", "/index/api/show/weekly", true);
-
-    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-    xhttp.send(JSON.stringify({ idFromSesion }));
-  }
-}
-
-// ===================================================================
-// =================  Filter TASKS MONTHLY ===========================
-// ===================================================================
-
-function monthly() {
-  // set user id from session
-  const idFromSesion = sessionStorage.getItem("id");
-
-  // check if user is logged in
-  if (idFromSesion === null) {
-    window.location.href = "../login.html";
-  } else {
-    const xhttp = new XMLHttpRequest();
+    xhttp.onload = () => {};
 
     xhttp.open("POST", "/index/api/show/monthly", true);
 
